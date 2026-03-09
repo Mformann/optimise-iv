@@ -1,0 +1,5 @@
+--- Checking Referral Tables ---
+referral_sources error: null
+referral_schemes error: null
+referral_rewards error: null
+Verification Complete

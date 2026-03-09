@@ -1,0 +1,10 @@
+
+--- Partner Insert Test ---
+PARTNER_ERROR_START
+{
+  "code": "PGRST204",
+  "details": null,
+  "hint": null,
+  "message": "Could not find the 'updated_at' column of 'partners' in the schema cache"
+}
+PARTNER_ERROR_END

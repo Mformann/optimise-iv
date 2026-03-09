@@ -1,0 +1,4 @@
+
+--- Partners Table Columns ---
+Partners Error: null
+No data, inserting a dummy and deleting to get columns...
