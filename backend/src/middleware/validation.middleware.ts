@@ -165,6 +165,10 @@ export const createOfferSchema = z.object({
   type: z.enum(['money', 'drip']),
   cost: z.number().min(0, 'Cost cannot be negative'),
   value: z.number().min(0).optional().nullable(),
+  drips: z.array(z.object({
+    drip_id: z.string().uuid('Invalid drip ID'),
+    quantity: z.number().positive('Quantity must be positive')
+  })).optional().nullable(),
   drip_id: z.string().optional().nullable(),
   drip_quantity: z.number().positive().optional().nullable(),
   expires_at_pattern: z.string().optional().nullable(),
@@ -178,10 +182,10 @@ export const createOfferSchema = z.object({
   { message: 'Money-type offers require a positive value', path: ['value'] }
 ).refine(
   (data) => {
-    if (data.type === 'drip') return data.drip_id && data.drip_quantity && data.drip_quantity > 0;
+    if (data.type === 'drip') return data.drips && data.drips.length > 0;
     return true;
   },
-  { message: 'Drip-type offers require drip_id and drip_quantity', path: ['drip_id'] }
+  { message: 'Drip-type offers require at least one drip item', path: ['drips'] }
 );
 
 export const redeemOfferSchema = z.object({

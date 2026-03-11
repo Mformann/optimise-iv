@@ -76,6 +76,8 @@ export const userRepository = {
     name: string;
     role: UserRole;
     phone?: string;
+    nurse_type?: 'inhouse' | 'freelancer';
+    permissions?: string[];
   }): Promise<DbUser> {
     const id = uuidv4();
     const passwordHash = await bcrypt.hash(data.password, 10);
@@ -88,6 +90,8 @@ export const userRepository = {
       name: data.name,
       role: data.role,
       phone: data.phone ?? null,
+      nurse_type: data.nurse_type ?? null,
+      permissions: data.permissions ? JSON.stringify(data.permissions) : null,
       // is_active: true, // Removed due to missing db column
       created_at: now,
       updated_at: now,
@@ -106,6 +110,7 @@ export const userRepository = {
       role?: UserRole;
       phone?: string;
       is_active?: boolean;
+      nurse_type?: 'inhouse' | 'freelancer';
     }
   ): Promise<DbUser | undefined> {
     const existing = await this.findById(id);
@@ -118,6 +123,7 @@ export const userRepository = {
     if (data.name !== undefined) updates.name = data.name;
     if (data.role !== undefined) updates.role = data.role;
     if (data.phone !== undefined) updates.phone = data.phone;
+    if (data.nurse_type !== undefined) updates.nurse_type = data.nurse_type;
     // if (data.is_active !== undefined) updates.is_active = data.is_active; // Removed due to missing db column
 
     const { error } = await supabaseAdmin.from('users').update(updates).eq('id', id);

@@ -69,23 +69,23 @@ export interface DeliveryData {
  */
 export const calculatePaymentBreakdown = async (
   patientId: string,
-  drips: { drip_id: string; quantity: number; price: number }[]
+  drips: { drip_id: string; quantity: number; price: number }[],
+  homeDeliveryCharges: number = 0
 ): Promise<PaymentBreakdown> => {
   const [dripBalances, walletBalance] = await Promise.all([
     getDripBalances(patientId),
     getWalletBalance(patientId),
   ]);
 
-  // Build drip name map
   if (drips.length === 0) {
     return {
       drips: [],
       totals: {
-        total_amount: 0,
+        total_amount: homeDeliveryCharges,
         covered_by_credits: 0,
-        remaining_to_pay: 0,
+        remaining_to_pay: homeDeliveryCharges,
         wallet_balance: walletBalance,
-        can_pay_from_wallet: true,
+        can_pay_from_wallet: walletBalance >= homeDeliveryCharges,
       },
     };
   }
@@ -123,9 +123,9 @@ export const calculatePaymentBreakdown = async (
     };
   });
 
-  const totalAmount = dripDetails.reduce((s, d) => s + d.quantity_needed * d.unit_price, 0);
+  const totalAmount = dripDetails.reduce((s, d) => s + d.quantity_needed * d.unit_price, 0) + homeDeliveryCharges;
   const coveredByCredits = dripDetails.reduce((s, d) => s + d.credit_value, 0);
-  const remainingToPay = dripDetails.reduce((s, d) => s + d.payment_value, 0);
+  const remainingToPay = dripDetails.reduce((s, d) => s + d.payment_value, 0) + homeDeliveryCharges;
 
   return {
     drips: dripDetails,

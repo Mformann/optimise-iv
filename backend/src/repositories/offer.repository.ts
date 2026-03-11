@@ -75,6 +75,7 @@ export const offerRepository = {
     type: 'money' | 'drip';
     cost: number;
     value?: number | null;
+    drips?: { drip_id: string; quantity: number }[] | null;
     drip_id?: string | null;
     drip_quantity?: number | null;
     expires_at_pattern?: string | null;
@@ -91,6 +92,7 @@ export const offerRepository = {
       type: data.type,
       cost: data.cost,
       value: data.value ?? null,
+      drips: data.drips ? JSON.parse(JSON.stringify(data.drips)) : null,
       drip_id: data.drip_id ?? null,
       drip_quantity: data.drip_quantity ?? null,
       expires_at_pattern: data.expires_at_pattern ?? null,
@@ -113,6 +115,7 @@ export const offerRepository = {
       type: 'money' | 'drip';
       cost: number;
       value: number | null;
+      drips: { drip_id: string; quantity: number }[] | null;
       drip_id: string | null;
       drip_quantity: number | null;
       expires_at_pattern: string | null;
@@ -130,6 +133,7 @@ export const offerRepository = {
     if (data.type !== undefined) updates.type = data.type;
     if (data.cost !== undefined) updates.cost = data.cost;
     if (data.value !== undefined) updates.value = data.value;
+    if (data.drips !== undefined) updates.drips = data.drips ? JSON.parse(JSON.stringify(data.drips)) : null;
     if (data.drip_id !== undefined) updates.drip_id = data.drip_id;
     if (data.drip_quantity !== undefined) updates.drip_quantity = data.drip_quantity;
     if (data.expires_at_pattern !== undefined) updates.expires_at_pattern = data.expires_at_pattern;

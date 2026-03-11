@@ -276,7 +276,8 @@ export const appointmentController = {
         return;
       }
 
-      const breakdown = await calculatePaymentBreakdown(appointment.patient_id, drips);
+      const homeDeliveryCharges = Number(appointment.home_delivery_charges || 0);
+      const breakdown = await calculatePaymentBreakdown(appointment.patient_id, drips, homeDeliveryCharges);
 
       res.json({
         success: true,
@@ -314,7 +315,8 @@ export const appointmentController = {
         };
 
         // Calculate breakdown and validate payment
-        const breakdown = await calculatePaymentBreakdown(existingAppointment.patient_id, drips);
+        const homeDeliveryCharges = Number(existingAppointment.home_delivery_charges || 0);
+        const breakdown = await calculatePaymentBreakdown(existingAppointment.patient_id, drips, homeDeliveryCharges);
         const validation = await validatePayment(breakdown, paymentInfo);
 
         if (!validation.valid) {

@@ -30,6 +30,7 @@ export const authController = {
         userId: user.id,
         email: user.email,
         role: user.role,
+        permissions: user.permissions,
       };
 
       const token = jwt.sign(payload, config.jwtSecret, {
@@ -46,6 +47,7 @@ export const authController = {
             name: user.name,
             role: user.role,
             phone: user.phone,
+            permissions: user.permissions,
           },
         },
       });
@@ -80,6 +82,7 @@ export const authController = {
         userId: user.id,
         email: user.email,
         role: user.role,
+        permissions: user.permissions,
       };
 
       const token = jwt.sign(payload, config.jwtSecret, {
@@ -96,6 +99,7 @@ export const authController = {
             name: user.name,
             role: user.role,
             phone: user.phone,
+            permissions: user.permissions,
           },
         },
       });
@@ -126,6 +130,7 @@ export const authController = {
           name: user.name,
           role: user.role,
           phone: user.phone,
+          permissions: user.permissions,
           is_active: user.is_active === 1,
           created_at: user.created_at,
         },

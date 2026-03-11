@@ -1,6 +1,6 @@
 // Shared types between frontend and backend
 
-export type UserRole = 'admin' | 'doctor' | 'reception';
+export type UserRole = 'admin' | 'doctor' | 'reception' | 'nurse';
 
 export type AppointmentType = 'consulting' | 'drip';
 
@@ -17,6 +17,7 @@ export interface User {
     role: UserRole;
     phone?: string;
     is_active: boolean;
+    nurse_type?: 'inhouse' | 'freelancer';
     created_at: string;
     updated_at: string;
 }
@@ -73,6 +74,10 @@ export interface Appointment {
     notes?: string;
     completion_notes?: string;
     created_by: string;
+    is_home_delivery?: boolean;
+    home_delivery_address?: string;
+    home_delivery_charges?: number;
+    nurse_id?: string;
     created_at: string;
     updated_at: string;
 }

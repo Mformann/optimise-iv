@@ -35,6 +35,9 @@ const mapAppointment = (a: any): Omit<AppointmentWithDetails, 'drips'> => ({
   clinic_name: a.clinics?.name ?? '',
   therapy_name: a.therapies?.name ?? undefined,
   nurse_name: a.nurse?.name ?? undefined,
+  is_home_delivery: a.is_home_delivery ?? false,
+  home_delivery_address: a.home_delivery_address ?? undefined,
+  home_delivery_charges: a.home_delivery_charges ? parseFloat(a.home_delivery_charges) : 0,
   patients: undefined,
   doctor: undefined,
   clinics: undefined,
@@ -236,6 +239,10 @@ export const appointmentRepository = {
     is_quick?: boolean;
     notes?: string | null;
     created_by: string;
+    is_home_delivery?: boolean;
+    home_delivery_address?: string;
+    home_delivery_charges?: number;
+    nurse_id?: string;
   }): Promise<AppointmentWithDetails> {
     const id = uuidv4();
     const now = new Date().toISOString();
@@ -254,6 +261,10 @@ export const appointmentRepository = {
       is_quick: data.is_quick ?? false,
       notes: data.notes ?? null,
       created_by: data.created_by,
+      is_home_delivery: data.is_home_delivery ?? false,
+      home_delivery_address: data.home_delivery_address ?? null,
+      home_delivery_charges: data.home_delivery_charges ?? 0,
+      nurse_id: data.nurse_id ?? null,
       created_at: now,
       updated_at: now,
       final_price: 0,
@@ -371,6 +382,10 @@ export const appointmentRepository = {
       scheduled_time: string;
       duration_minutes: number;
       notes: string | null;
+      is_home_delivery: boolean;
+      home_delivery_address: string;
+      home_delivery_charges: number;
+      nurse_id: string;
     }>
   ): Promise<AppointmentWithDetails | undefined> {
     const existing = await this.findById(id);
@@ -385,6 +400,10 @@ export const appointmentRepository = {
     if (data.scheduled_time !== undefined) updates.scheduled_time = data.scheduled_time;
     if (data.duration_minutes !== undefined) updates.duration_minutes = data.duration_minutes;
     if (data.notes !== undefined) updates.notes = data.notes;
+    if (data.is_home_delivery !== undefined) updates.is_home_delivery = data.is_home_delivery;
+    if (data.home_delivery_address !== undefined) updates.home_delivery_address = data.home_delivery_address;
+    if (data.home_delivery_charges !== undefined) updates.home_delivery_charges = data.home_delivery_charges;
+    if (data.nurse_id !== undefined) updates.nurse_id = data.nurse_id;
 
     const { error } = await supabaseAdmin.from('appointments').update(updates).eq('id', id);
     if (error) throw error;

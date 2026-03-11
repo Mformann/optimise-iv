@@ -6,6 +6,7 @@ export interface JwtPayload {
   userId: string;
   email: string;
   role: UserRole;
+  permissions?: string[] | null;
 }
 
 export interface AuthenticatedRequest extends Request {
@@ -20,6 +21,7 @@ export interface DbUser {
   role: UserRole;
   phone: string | null;
   is_active: number;
+  permissions: string[] | null;
   created_at: string;
   updated_at: string;
 }
@@ -99,6 +101,9 @@ export interface DbAppointment {
   nurse_id: string | null;
   inquiry_id: string | null;
   is_non_clinic: number;
+  is_home_delivery: boolean;
+  home_delivery_address: string | null;
+  home_delivery_charges: number | string; // Numeric in postgres can come as string
 }
 
 export interface DbDrip {
@@ -285,6 +290,7 @@ export interface DbOffer {
   type: 'money' | 'drip';
   cost: number;
   value: number | null;
+  drips: { drip_id: string; quantity: number }[] | null;
   drip_id: string | null;
   drip_quantity: number | null;
   expires_at_pattern: string | null;
@@ -303,6 +309,7 @@ export interface DbOfferRedemption {
   cost_paid: number;
   payment_method: 'cash' | 'card' | 'transfer';
   value_granted: number | null;
+  drips: { drip_id: string; quantity: number }[] | null;
   drip_id: string | null;
   drip_quantity: number | null;
   created_by: string | null;
