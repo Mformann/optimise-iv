@@ -6,7 +6,7 @@ import { config } from './config/index.js';
 import { initializeSocketService } from './services/socket.service.js';
 import routes from './routes/index.js';
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./config/swagger";
+import { swaggerSpec } from "./config/swagger.js";
 
 const app = express();
 const httpServer = createServer(app);
