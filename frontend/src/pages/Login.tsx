@@ -22,8 +22,8 @@ const Login: React.FC = () => {
       await login(values.email, values.password);
       message.success('Login successful!');
       navigate('/dashboard');
-    } catch (error) {
-      message.error('Invalid email or password');
+    } catch (error: any) {
+      message.error(error.message || 'Invalid email or password');
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <MedicineBoxOutlined style={{ fontSize: 48, color: '#667eea' }} />
           <Title level={2} style={{ margin: '16px 0 8px' }}>
-            IV Therapy Clinic
+            Optimise IV
           </Title>
           <Text type="secondary">CRM System</Text>
         </div>
