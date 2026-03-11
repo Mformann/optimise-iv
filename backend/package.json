@@ -13,6 +13,13 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.25",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.11.24",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/uuid": "^9.0.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
@@ -23,18 +30,10 @@
     "socket.io": "^4.7.4",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
     "uuid": "^9.0.1",
     "zod": "^3.25.76"
   },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.25",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.11.24",
-    "@types/swagger-ui-express": "^4.1.8",
-    "@types/uuid": "^9.0.8",
-    "tsx": "^4.7.1",
-    "typescript": "^5.3.3"
-  }
+  "devDependencies": {}
 }
